@@ -5,13 +5,19 @@ const sliders = document.querySelectorAll(`input[type="range"]`);
 const currentHexes = document.querySelectorAll(".color h2");
 let initialColors;
 
-//-------------------Event Listeners------------------
+//-------------------Event Listeners-----------------------------------
 
 sliders.forEach((slider) => {
   slider.addEventListener("input", hslControls);
 });
 
-//-----------------Functions------------------
+colorDivs.forEach((div, index) => {
+  div.addEventListener("change", () => {
+    updateTextUI(index);
+  });
+});
+
+//-----------------Functions------------------------------------------
 
 //Color Generator
 function generateHex() {
@@ -89,6 +95,20 @@ function hslControls(event) {
     .set("hsl.h", hue.value);
 
   colorDivs[index].style.backgroundColor = color;
+}
+
+function updateTextUI(index) {
+  const activDiv = colorDivs[index];
+  const color = chroma(activDiv.style.backgroundColor);
+  const textHex = activDiv.querySelector("h2");
+  const icons = activDiv.querySelectorAll(".controls button");
+
+  textHex.innerText = color.hex();
+  //Check contrast
+  checkTextContrast(color, textHex);
+  for (icon of icons) {
+    checkTextContrast(color, icon);
+  }
 }
 
 randomColors();
