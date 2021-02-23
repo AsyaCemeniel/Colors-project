@@ -254,6 +254,24 @@ function savePalette(event) {
   currentHexes.forEach((hex) => {
     colors.push(hex.innerText);
   });
+  //Generate Object
+  let paletteNum = savedPalettes.length;
+  const paletteObject = { name, colors, number: paletteNum };
+  savedPalettes.push(paletteObject);
+  //Save to Local Storage
+  saveToLocal(paletteObject);
+  saveInput.value = "";
+}
+
+function saveToLocal(paletteObject) {
+  let localPalettes;
+  if (localStorage.getItem("palettes") === null) {
+    localPalettes = [];
+  } else {
+    localPalettes = JSON.parse(localStorage.getItem("palettes"));
+  }
+  localPalettes.push(paletteObject);
+  localStorage.setItem("palettes", JSON.stringify(localPalettes));
 }
 
 randomColors();
