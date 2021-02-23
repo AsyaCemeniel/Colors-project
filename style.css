@@ -14,6 +14,10 @@ button {
   font-family: "Yanone Kaffeesatz", sans-serif;
 }
 
+button:focus {
+  outline: none;
+}
+
 path,
 i,
 svg {
@@ -260,7 +264,6 @@ input[type="range"] {
 .small-preview div {
   height: 5rem;
   flex: 1;
-  border-radius: 12px;
 }
 
 .pick-palette-btn {
