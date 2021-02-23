@@ -9,6 +9,8 @@ const lockBtn = document.querySelectorAll(".lock");
 const closeAdjustBtn = document.querySelectorAll(".close-adjustment");
 const sliderContainers = document.querySelectorAll(".sliders");
 let initialColors;
+//For Local Storage
+let savedPalettes = [];
 
 //-------------------Event Listeners-----------------------------------
 generateBtn.addEventListener("click", randomColors);
@@ -213,6 +215,45 @@ function lockColor(index) {
   colorDivs[index].classList.toggle("locked");
   lockBtn[index].children[0].classList.toggle("fa-lock-open");
   lockBtn[index].children[0].classList.toggle("fa-lock");
+}
+
+//--------------Implement Save to palette and Local Storage----------------
+
+const saveBtn = document.querySelector(".save");
+const submitSave = document.querySelector(".submit-save");
+const closeSave = document.querySelector(".close-save");
+const saveContainer = document.querySelector(".save-container");
+const saveInput = document.querySelector(".save-container input");
+
+//Event Listeners
+saveBtn.addEventListener("click", openPalette);
+closeSave.addEventListener("click", closePalette);
+submitSave.addEventListener("click", savePalette);
+
+//Functions
+
+function openPalette(event) {
+  const popup = saveContainer.children[0];
+  saveContainer.classList.add("active");
+  popup.classList.add("active");
+}
+
+function closePalette(event) {
+  const popup = saveContainer.children[0];
+  saveContainer.classList.remove("active");
+  popup.classList.remove("active");
+}
+
+function savePalette(event) {
+  saveContainer.classList.remove("active");
+  popup.classList.remove("active");
+
+  const name = saveInput.value;
+  const colors = [];
+
+  currentHexes.forEach((hex) => {
+    colors.push(hex.innerText);
+  });
 }
 
 randomColors();
